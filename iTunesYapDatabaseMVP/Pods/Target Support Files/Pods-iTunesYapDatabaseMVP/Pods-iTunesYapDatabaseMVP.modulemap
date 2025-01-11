@@ -1,0 +1,6 @@
+framework module Pods_iTunesYapDatabaseMVP {
+  umbrella header "Pods-iTunesYapDatabaseMVP-umbrella.h"
+
+  export *
+  module * { export * }
+}
