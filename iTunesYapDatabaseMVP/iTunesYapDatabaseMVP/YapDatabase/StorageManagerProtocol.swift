@@ -8,8 +8,6 @@
 import Foundation
 
 protocol StorageManagerProtocol: AnyObject {
-    //func saveAlbum(_ album: Album, for searchTerm: String)
-
     func saveAlbums(_ albums: [Album])
 
     func saveAlbumsForSearchQuery(albums: [Album], _ searchQuery: String)

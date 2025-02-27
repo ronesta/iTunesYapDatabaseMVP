@@ -9,6 +9,12 @@ import UIKit
 import SnapKit
 
 final class SearchViewController: UIViewController {
+    var onSelect: ((IndexPath) -> Void)?
+
+    var presenter: SearchPresenterProtocol?
+    var collectionViewDataSource: SearchDataSourceProtocol?
+    // Cannot be injected with initializer, because presenter also needs CharacterViewController for his initializer
+
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
@@ -35,10 +41,6 @@ final class SearchViewController: UIViewController {
 
         return collectionView
     }()
-
-    var presenter: SearchPresenterProtocol?
-    var storageManager: StorageManagerProtocol?
-    var collectionViewDataSource: SearchDataSourceProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,13 +82,7 @@ extension SearchViewController: SearchViewProtocol {
 // MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let album = collectionViewDataSource?.albums[indexPath.item] else {
-            return
-        }
-
-        let albumViewController = AlbumAssembly().build(with: album)
-
-        navigationController?.pushViewController(albumViewController, animated: true)
+        onSelect?(indexPath)
     }
 }
 
@@ -98,7 +94,6 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
 
-        storageManager?.saveSearchTerm(searchTerm)
-        presenter?.searchAlbums(with: searchTerm)
+        presenter?.viewDidLoad(with: searchTerm)
     }
 }

@@ -11,9 +11,15 @@ final class SearchHistoryPresenter: SearchHistoryPresenterProtocol {
     weak var view: SearchHistoryViewProtocol?
     private let storageManager: StorageManagerProtocol
 
-    init(view: SearchHistoryViewProtocol, storageManager: StorageManagerProtocol) {
+    init(view: SearchHistoryViewProtocol?,
+         storageManager: StorageManagerProtocol
+    ) {
         self.view = view
         self.storageManager = storageManager
+    }
+
+    func viewDidLoad() {
+        loadSearchHistory()
     }
 
     func loadSearchHistory() {

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 final class AlbumViewController: UIViewController {
-    private let presenter: AlbumPresenterProtocol
+    var presenter: AlbumPresenterProtocol?
 
     private let albumImageView: UIImageView = {
         let image = UIImageView()
@@ -42,19 +42,10 @@ final class AlbumViewController: UIViewController {
         return label
     }()
 
-    init(presenter: AlbumPresenterProtocol) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        presenter.loadAlbumDetails()
+        presenter?.viewDidLoad()
     }
 
     private func setupViews() {

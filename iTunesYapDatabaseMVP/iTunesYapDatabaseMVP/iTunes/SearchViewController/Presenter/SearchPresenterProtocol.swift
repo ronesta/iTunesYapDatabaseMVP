@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol SearchPresenterProtocol: AnyObject {
-    func searchAlbums(with term: String)
+    func viewDidLoad(with term: String)
 
     func loadImage(for album: Album, completion: @escaping (UIImage?) -> Void)
 }

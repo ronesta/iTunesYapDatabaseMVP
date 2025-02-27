@@ -8,30 +8,37 @@
 import Foundation
 import UIKit
 
-class AlbumPresenter: AlbumPresenterProtocol {
+final class AlbumPresenter: AlbumPresenterProtocol {
     weak var view: AlbumViewProtocol?
     private let networkManager: NetworkManagerProtocol
     private let storageManager: StorageManagerProtocol
 
     private let album: Album
 
-    init(networkManager: NetworkManagerProtocol,
+    init(view: AlbumViewProtocol?,
+         networkManager: NetworkManagerProtocol,
          storageManager: StorageManagerProtocol,
          album: Album
     ) {
+        self.view = view
         self.networkManager = networkManager
         self.storageManager = storageManager
         self.album = album
     }
 
+    func viewDidLoad() {
+        loadAlbumDetails()
+    }
+
     func loadAlbumDetails() {
         networkManager.loadImage(from: album.artworkUrl100) { [weak self] loadedImage in
 
-            guard let self else {
+            guard let self,
+                  let loadedImage else {
                 return
             }
 
-            view?.displayAlbumDetails(album: album, image: loadedImage ?? UIImage())
+            view?.displayAlbumDetails(album: album, image: loadedImage)
         }
     }
 }

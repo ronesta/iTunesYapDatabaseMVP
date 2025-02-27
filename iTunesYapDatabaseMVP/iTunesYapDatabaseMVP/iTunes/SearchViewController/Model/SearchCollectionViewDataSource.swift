@@ -10,7 +10,7 @@ import UIKit
 
 final class SearchCollectionViewDataSource: NSObject, SearchDataSourceProtocol {
     var albums = [Album]()
-    var presenter: SearchPresenterProtocol
+    private let presenter: SearchPresenterProtocol
 
     init(presenter: SearchPresenterProtocol) {
         self.presenter = presenter

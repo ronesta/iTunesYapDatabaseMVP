@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct SearchAssembly: SearchAssemblyProtocol {
+struct SearchAssembly {
     func build() -> UIViewController {
         let storageManager = DatabaseManager.shared
         let networkManager = NetworkManager(storageManager: storageManager)
@@ -21,9 +21,10 @@ struct SearchAssembly: SearchAssemblyProtocol {
         let collectionViewDataSource = SearchCollectionViewDataSource(presenter: presenter)
 
         viewController.presenter = presenter
-        viewController.storageManager = storageManager
         viewController.collectionViewDataSource = collectionViewDataSource
         presenter.view = viewController
+
+        configureOnSelect(for: viewController, with: collectionViewDataSource)
 
         let navigationController = UINavigationController(rootViewController: viewController)
         let tabBarItem = UITabBarItem(title: "Search",
@@ -33,5 +34,18 @@ struct SearchAssembly: SearchAssemblyProtocol {
         navigationController.tabBarItem = tabBarItem
 
         return navigationController
+    }
+
+    private func configureOnSelect(for viewController: SearchViewController,
+                                   with collectionViewDataSource: SearchCollectionViewDataSource
+    ) {
+        viewController.onSelect = { [weak viewController] indexPath in
+            let album = collectionViewDataSource.albums[indexPath.item]
+            let albumAssembly = AlbumAssembly()
+
+            let albumViewController = albumAssembly.build(with: album)
+
+            viewController?.navigationController?.pushViewController(albumViewController, animated: true)
+        }
     }
 }

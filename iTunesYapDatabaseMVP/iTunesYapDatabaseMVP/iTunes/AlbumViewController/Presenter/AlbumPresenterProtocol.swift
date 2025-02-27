@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AlbumPresenterProtocol: AnyObject {
-    func loadAlbumDetails()
+    func viewDidLoad()
 }
