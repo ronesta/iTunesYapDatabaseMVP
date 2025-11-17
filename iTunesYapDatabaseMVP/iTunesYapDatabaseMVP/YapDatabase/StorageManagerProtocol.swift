@@ -14,7 +14,7 @@ protocol StorageManagerProtocol: AnyObject {
 
     func loadAlbum(key: String) -> Album?
 
-    func loadAlbums(forTerm term: String) -> [Album]
+    func loadAlbums(forTerm term: String) -> [Album]?
 
     func saveImage(_ image: Data, key: String)
 

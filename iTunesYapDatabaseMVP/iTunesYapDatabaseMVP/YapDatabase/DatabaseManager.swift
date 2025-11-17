@@ -82,7 +82,7 @@ final class DatabaseManager: StorageManagerProtocol {
         return album
     }
 
-    func loadAlbums(forTerm term: String) -> [Album] {
+    func loadAlbums(forTerm term: String) -> [Album]? {
         var albums = [Album]()
 
         connection.read { transaction in

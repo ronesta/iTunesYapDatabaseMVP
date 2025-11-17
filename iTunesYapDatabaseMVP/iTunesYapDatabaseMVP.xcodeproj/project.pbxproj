@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		180C2D3BD7787EBF2A6EA702 /* Pods_iTunesYapDatabaseMVP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473C5A0E0E1A2B6CEDADFB8C /* Pods_iTunesYapDatabaseMVP.framework */; };
-		E1A820642D32ABAB00A199A4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E1A820632D32ABAB00A199A4 /* SnapKit */; };
+		E10B31DE2EC64CC400B12307 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E10B31DD2EC64CC400B12307 /* SnapKit */; };
+		E1B47A3C2EC6779D000E73A8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E1B47A3B2EC6779D000E73A8 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1A820642D32ABAB00A199A4 /* SnapKit in Frameworks */,
+				E1B47A3C2EC6779D000E73A8 /* Kingfisher in Frameworks */,
 				180C2D3BD7787EBF2A6EA702 /* Pods_iTunesYapDatabaseMVP.framework in Frameworks */,
+				E10B31DE2EC64CC400B12307 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +111,8 @@
 			);
 			name = iTunesYapDatabaseMVP;
 			packageProductDependencies = (
-				E1A820632D32ABAB00A199A4 /* SnapKit */,
+				E10B31DD2EC64CC400B12307 /* SnapKit */,
+				E1B47A3B2EC6779D000E73A8 /* Kingfisher */,
 			);
 			productName = iTunesYapDatabaseMVP;
 			productReference = E1A8204A2D32AB4200A199A4 /* iTunesYapDatabaseMVP.app */;
@@ -140,7 +143,8 @@
 			mainGroup = E1A820412D32AB4200A199A4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				E1A820622D32ABAB00A199A4 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E10B31DC2EC64CC400B12307 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E1B47A3A2EC6779D000E73A8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E1A8204B2D32AB4200A199A4 /* Products */;
@@ -193,9 +197,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iTunesYapDatabaseMVP/Pods-iTunesYapDatabaseMVP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iTunesYapDatabaseMVP/Pods-iTunesYapDatabaseMVP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -422,7 +430,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E1A820622D32ABAB00A199A4 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		E10B31DC2EC64CC400B12307 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -430,13 +438,26 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		E1B47A3A2EC6779D000E73A8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E1A820632D32ABAB00A199A4 /* SnapKit */ = {
+		E10B31DD2EC64CC400B12307 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1A820622D32ABAB00A199A4 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = E10B31DC2EC64CC400B12307 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		E1B47A3B2EC6779D000E73A8 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1B47A3A2EC6779D000E73A8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

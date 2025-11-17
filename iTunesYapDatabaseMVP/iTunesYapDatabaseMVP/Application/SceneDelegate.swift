@@ -8,30 +8,32 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
+    private var appCoordinator: AppCoordinator!
 
-    func scene(_ scene: UIScene,
-               willConnectTo session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+
         let window = UIWindow(windowScene: windowScene)
+        self.window = window
 
-        // MARK: - viewControllers
         let searchAssembly = SearchAssembly()
+        let albumAssembly = AlbumAssembly()
         let searchHistoryAssembly = SearchHistoryAssembly()
 
-        let searchViewController = searchAssembly.build()
-        let searchHistoryViewController = searchHistoryAssembly.build()
+        appCoordinator = AppCoordinator(
+            searchAssembly: searchAssembly,
+            albumAssembly: albumAssembly,
+            searchHistoryAssembly: searchHistoryAssembly
+        )
 
-        // MARK: - UITabBarController
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [searchViewController, searchHistoryViewController]
-        tabBarController.tabBar.barTintColor = .white
+        appCoordinator.start()
 
-        // MARK: - UIWindow
-        window.rootViewController = tabBarController
-        self.window = window
+        window.rootViewController = appCoordinator.tabBarController
         window.makeKeyAndVisible()
     }
 }
