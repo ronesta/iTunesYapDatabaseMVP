@@ -19,10 +19,10 @@ final class AppCoordinator: BaseCoordinator {
         albumAssembly: AlbumAssemblyProtocol,
         searchHistoryAssembly: SearchHistoryAssemblyProtocol
     ) {
-        self.navigationController = UINavigationController()
         self.searchAssembly = searchAssembly
         self.albumAssembly = albumAssembly
         self.searchHistoryAssembly = searchHistoryAssembly
+        super.init()
     }
 
     override func start() {
@@ -30,41 +30,41 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     private func showRootTabs() {
-        // основной экран поиска
-        let (searchViewController, navigation) = searchAssembly.build(coordinator: self)
+        // 1) ТАБ "Search"
+        let searchCoordinator = SearchCoordinator(
+            searchQuery: "",
+            searchAssembly: searchAssembly,
+            albumAssembly: albumAssembly
+        )
 
-        navigation.out = { [weak self] event in
-            switch event {
-            case let .albumDetails(viewModel):
-                guard let viewModel else { return }
-                self?.showAlbum(with: viewModel)
-            }
-        }
-
-        navigationController.setViewControllers([searchViewController], animated: false)
-        navigationController.tabBarItem = UITabBarItem(
+        // делаем навигейшн координатора табом
+        searchCoordinator.navigationController.tabBarItem = UITabBarItem(
             title: "Search",
             image: UIImage(systemName: "magnifyingglass"),
             tag: 0
         )
 
-        // второй таб — History (если он у тебя есть)
-        let historyVC = searchHistoryAssembly.build()
-        let historyNav = UINavigationController(rootViewController: historyVC)
-        historyNav.tabBarItem = UITabBarItem(
+        // добавляем как child-координатор и запускаем
+        start(coordinator: searchCoordinator)
+
+        // 2) ТАБ "History"
+        let searchHistoryCoordinator = SearchHistoryCoordinator(
+            searchHistoryAssembly: searchHistoryAssembly,
+            searchAssembly: searchAssembly
+        )
+
+        searchHistoryCoordinator.navigationController.tabBarItem = UITabBarItem(
             title: "History",
             image: UIImage(systemName: "clock"),
             tag: 1
         )
 
-        tabBarController.viewControllers = [navigationController, historyNav]
-    }
+        start(coordinator: searchHistoryCoordinator)
 
-    private func showAlbum(with viewModel: AlbumViewModel) {
-        let viewController = albumAssembly.build(
-            coordinator: self,
-            viewModel: viewModel
-        )
-        navigationController.pushViewController(viewController, animated: true)
+        // 3) Собираем таббар
+        tabBarController.viewControllers = [
+            searchCoordinator.navigationController,
+            searchHistoryCoordinator.navigationController
+        ]
     }
 }

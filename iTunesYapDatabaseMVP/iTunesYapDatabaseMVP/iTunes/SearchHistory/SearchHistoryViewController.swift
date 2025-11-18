@@ -56,8 +56,6 @@ final class SearchHistoryViewController: UIViewController {
 // MARK: - SearchHistoryViewInput
 
 extension SearchHistoryViewController: SearchHistoryViewInput {
-    func updateSearchHistory(_ history: [String]) {}
-    
     func reloadData() {
         customView.tableView.reloadData()
     }

@@ -29,7 +29,10 @@ final class SearchPresenter {
 
 extension SearchPresenter: SearchViewOutput {
     func viewDidLoad() {
-        interactor.getAlbums(with: searchQuery)
+        if !searchQuery.isEmpty {
+            view?.setSearchBarHidden(true)
+            interactor.getAlbums(with: searchQuery)
+        }
     }
 
     func didSelectItemAt(_ indexPath: IndexPath) {
@@ -64,6 +67,17 @@ extension SearchPresenter: SearchViewOutput {
 extension SearchPresenter: SearchInteractorOutput {
     func didGetAlbums(responseModel: [Album]) {
         albums = responseModel.sorted { $0.collectionName < $1.collectionName }
+
+        let rowCells: [SearchCellKind] = albums.map { album in
+            let viewModel = SearchCellKind.SearchViewModel(
+                artistName: album.artistName,
+                collectionName: album.collectionName,
+                artworkUrl100: album.artworkUrl100
+            )
+            return .search(viewModel)
+        }
+
+        cells = [rowCells]
         view?.reloadData()
     }
 

@@ -5,7 +5,6 @@
 //  Created by Ибрагим Габибли on 15.11.2025.
 //
 
-
 import UIKit
 
 class BaseNavigation: NSObject {

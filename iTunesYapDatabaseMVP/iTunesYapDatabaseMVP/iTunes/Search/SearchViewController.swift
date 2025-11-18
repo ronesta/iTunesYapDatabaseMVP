@@ -31,8 +31,8 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad()
         configure()
+        presenter.viewDidLoad()
     }
 
     private func configure() {
@@ -67,6 +67,17 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: SearchViewInput {
     func reloadData() {
         customView.collectionView.reloadData()
+    }
+
+    func setSearchBarHidden(_ hidden: Bool) {
+        if hidden {
+            navigationItem.titleView = nil
+            customView.searchBar.isHidden = true
+        } else {
+            customView.searchBar.isHidden = false
+            navigationItem.titleView = customView.searchBar
+            customView.searchBar.delegate = self
+        }
     }
 }
 

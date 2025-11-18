@@ -17,6 +17,7 @@ final class SearchHistoryCoordinator: BaseCoordinator {
     ) {
         self.searchHistoryAssembly = searchHistoryAssembly
         self.searchAssembly = searchAssembly
+        super.init()
     }
 
     override func start() {
@@ -32,11 +33,18 @@ final class SearchHistoryCoordinator: BaseCoordinator {
                 self?.showSearchResult(with: searchQuery)
             }
         }
+
+        navigationController.setViewControllers([viewController], animated: false)
     }
 
     private func showSearchResult(with searchQuery: String) {
-        let coordinator = SearchCoordinator(searchQuery: searchQuery)
+        let coordinator = SearchCoordinator(
+            searchQuery: searchQuery,
+            searchAssembly: searchAssembly
+        )
+
         coordinator.navigationController = navigationController
+
         start(coordinator: coordinator)
     }
 }

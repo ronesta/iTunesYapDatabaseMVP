@@ -11,7 +11,7 @@ final class SearchHistoryPresenter {
     weak var view: SearchHistoryViewInput?
 
     private var cells = [[SearchHistoryCellKind]]()
-    private var history = [String]()
+    private var searchHistory = [String]()
 
     private let interactor: SearchHistoryInteractorInput
     private let navigation: SearchHistoryNavigation
@@ -32,12 +32,12 @@ extension SearchHistoryPresenter: SearchHistoryViewOutput {
     }
 
     func didSelectRowAt(_ indexPath: IndexPath) {
-        let history = history[indexPath.row]
+        let history = searchHistory[indexPath.row]
         navigation.out?(.search(history))
     }
 
     func numberOfRows() -> Int {
-        cells.count
+        cells.first?.count ?? 0
     }
     
     func cellModel(at indexPath: IndexPath) -> SearchHistoryCellKind {
@@ -49,9 +49,20 @@ extension SearchHistoryPresenter: SearchHistoryViewOutput {
 
 extension SearchHistoryPresenter: SearchHistoryInteractorOutput {
     func didGetSearchHistory(_ history: [String]) {
-        view?.updateSearchHistory(history)
+        searchHistory = history
+
+        let rowCells: [SearchHistoryCellKind] = history.map { term in
+            let viewModel = SearchHistoryCellKind.SearchHistoryViewModel(
+                leftText: term,
+                rightText: nil
+            )
+            return .history(viewModel)
+        }
+
+        cells = [rowCells]
+        view?.reloadData()
     }
-    
+
     func didNotSearchHistory() {}
 }
 

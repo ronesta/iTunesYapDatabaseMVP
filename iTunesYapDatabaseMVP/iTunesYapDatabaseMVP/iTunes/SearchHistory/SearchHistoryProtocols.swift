@@ -14,8 +14,6 @@ protocol SearchHistoryAssemblyProtocol {
 
 protocol SearchHistoryViewInput: AnyObject {
     func reloadData()
-
-    func updateSearchHistory(_ history: [String])
 }
 
 protocol SearchHistoryViewOutput: AnyObject {

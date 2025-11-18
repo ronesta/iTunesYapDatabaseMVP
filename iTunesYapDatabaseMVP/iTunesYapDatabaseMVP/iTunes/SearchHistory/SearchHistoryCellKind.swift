@@ -11,6 +11,6 @@ enum SearchHistoryCellKind {
 
     struct SearchHistoryViewModel {
         let leftText: String
-        let rightText: String
+        let rightText: String?
     }
 }

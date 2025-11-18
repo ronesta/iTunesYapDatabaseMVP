@@ -14,6 +14,7 @@ protocol SearchAssemblyProtocol {
 
 protocol SearchViewInput: AnyObject {
     func reloadData()
+    func setSearchBarHidden(_ hidden: Bool)
 }
 
 protocol SearchViewOutput: AnyObject {
