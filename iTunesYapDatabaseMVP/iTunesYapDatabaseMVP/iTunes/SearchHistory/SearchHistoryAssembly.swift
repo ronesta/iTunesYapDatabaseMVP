@@ -11,7 +11,7 @@ import UIKit
 struct SearchHistoryAssembly: SearchHistoryAssemblyProtocol {
     func build(coordinator: BaseCoordinatable) -> (UIViewController, SearchHistoryNavigation) {
         let navigation = SearchHistoryNavigation(out: nil, coordinator: coordinator)
-        let interactor = SearchHistoryInteractor(storageManager: DatabaseManager.shared)
+        let interactor = SearchHistoryInteractor(storageManager: ApplicationDatabase.shared)
         let presenter = SearchHistoryPresenter(
             interactor: interactor,
             navigation: navigation

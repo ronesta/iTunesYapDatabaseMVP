@@ -13,9 +13,9 @@ final class SearchInteractor {
     weak var presenter: SearchInteractorOutput?
 
     private let iTunesService: ITunesServiceProtocol
-    private let storageManager: StorageManagerProtocol
+    private let storageManager: ApplicationDatabaseProtocol
 
-    init(iTunesService: ITunesServiceProtocol, storageManager: StorageManagerProtocol) {
+    init(iTunesService: ITunesServiceProtocol, storageManager: ApplicationDatabaseProtocol) {
         self.iTunesService = iTunesService
         self.storageManager = storageManager
     }
@@ -25,8 +25,6 @@ final class SearchInteractor {
 
 extension SearchInteractor: SearchInteractorInput {
     func getAlbums(with name: String) {
-        storageManager.saveSearchTerm(name)
-
         if let savedAlbums = storageManager.loadAlbums(forTerm: name) {
             presenter?.didGetAlbums(responseModel: savedAlbums)
         }

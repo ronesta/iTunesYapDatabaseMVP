@@ -10,9 +10,9 @@ import Foundation
 final class SearchHistoryInteractor {
     weak var presenter: SearchHistoryInteractorOutput?
 
-    private let storageManager: StorageManagerProtocol
+    private let storageManager: ApplicationDatabaseProtocol
 
-    init(storageManager: StorageManagerProtocol) {
+    init(storageManager: ApplicationDatabaseProtocol) {
         self.storageManager = storageManager
     }
 }

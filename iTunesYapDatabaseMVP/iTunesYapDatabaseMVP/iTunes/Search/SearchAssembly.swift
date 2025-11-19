@@ -9,17 +9,18 @@ import Foundation
 import UIKit
 
 struct SearchAssembly: SearchAssemblyProtocol {
-    func build(searchQuery: String, coordinator: BaseCoordinatable) -> (UIViewController, SearchNavigation) {
-        let iTunesService = ITunesService(storageManager: DatabaseManager.shared)
+    func build(searchQuery: String?, coordinator: BaseCoordinatable) -> (UIViewController, SearchNavigation) {
+        let iTunesService = ITunesService()
         let navigation = SearchNavigation(out: nil, coordinator: coordinator)
         let interactor = SearchInteractor(
             iTunesService: iTunesService,
-            storageManager: DatabaseManager.shared
+            storageManager: ApplicationDatabase.shared
         )
         let presenter = SearchPresenter(
             searchQuery: searchQuery,
             interactor: interactor,
-            navigation: navigation
+            navigation: navigation,
+            storageManager: ApplicationDatabase.shared
         )
         let viewController = SearchViewController(presenter: presenter)
 

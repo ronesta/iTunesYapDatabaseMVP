@@ -24,6 +24,19 @@ final class SearchHistoryPresenter {
         self.interactor = interactor
         self.navigation = navigation
     }
+
+    private func updateHistoryData() {
+        let rowCells: [SearchHistoryCellKind] = searchHistory.map { term in
+            let viewModel = SearchHistoryCellKind.SearchHistoryViewModel(
+                leftText: term,
+                rightText: nil
+            )
+            return .history(viewModel)
+        }
+
+        cells = [rowCells]
+        view?.reloadData()
+    }
 }
 
 extension SearchHistoryPresenter: SearchHistoryViewOutput {
@@ -50,17 +63,7 @@ extension SearchHistoryPresenter: SearchHistoryViewOutput {
 extension SearchHistoryPresenter: SearchHistoryInteractorOutput {
     func didGetSearchHistory(_ history: [String]) {
         searchHistory = history
-
-        let rowCells: [SearchHistoryCellKind] = history.map { term in
-            let viewModel = SearchHistoryCellKind.SearchHistoryViewModel(
-                leftText: term,
-                rightText: nil
-            )
-            return .history(viewModel)
-        }
-
-        cells = [rowCells]
-        view?.reloadData()
+        updateHistoryData()
     }
 
     func didNotSearchHistory() {}

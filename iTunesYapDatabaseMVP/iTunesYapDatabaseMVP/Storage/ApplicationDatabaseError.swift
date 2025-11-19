@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum YapDatabaseError: Error {
+enum ApplicationDatabaseError: Error {
     case databaseInitializationFailed
     case encodingFailed(Error)
     case decodingFailed(Error)

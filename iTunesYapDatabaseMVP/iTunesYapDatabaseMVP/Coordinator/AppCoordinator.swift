@@ -30,24 +30,21 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     private func showRootTabs() {
-        // 1) ТАБ "Search"
+        configureTabBarAppearance()
+        
         let searchCoordinator = SearchCoordinator(
-            searchQuery: "",
             searchAssembly: searchAssembly,
             albumAssembly: albumAssembly
         )
 
-        // делаем навигейшн координатора табом
         searchCoordinator.navigationController.tabBarItem = UITabBarItem(
             title: "Search",
             image: UIImage(systemName: "magnifyingglass"),
             tag: 0
         )
 
-        // добавляем как child-координатор и запускаем
         start(coordinator: searchCoordinator)
 
-        // 2) ТАБ "History"
         let searchHistoryCoordinator = SearchHistoryCoordinator(
             searchHistoryAssembly: searchHistoryAssembly,
             searchAssembly: searchAssembly
@@ -61,10 +58,25 @@ final class AppCoordinator: BaseCoordinator {
 
         start(coordinator: searchHistoryCoordinator)
 
-        // 3) Собираем таббар
         tabBarController.viewControllers = [
             searchCoordinator.navigationController,
             searchHistoryCoordinator.navigationController
         ]
+    }
+
+    private func configureTabBarAppearance() {
+        let tabBar = tabBarController.tabBar
+        tabBar.tintColor = .label
+        tabBar.unselectedItemTintColor = .secondaryLabel
+        tabBar.barTintColor = .systemBackground
+        tabBar.isTranslucent = false
+
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .systemBackground
+            tabBar.standardAppearance = appearance
+            tabBar.scrollEdgeAppearance = appearance
+        }
     }
 }

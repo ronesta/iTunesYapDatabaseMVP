@@ -33,6 +33,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         configure()
         presenter.viewDidLoad()
+        hideKeyboardWhenTappedAround()
     }
 
     private func configure() {
@@ -79,6 +80,10 @@ extension SearchViewController: SearchViewInput {
             customView.searchBar.delegate = self
         }
     }
+
+    func setResultsVisibility(showResults: Bool) {
+        customView.setResultsVisibility(showResults: showResults)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -121,5 +126,10 @@ extension SearchViewController: UICollectionViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.searchInputTextDidChange(with: searchText)
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        presenter.searchButtonClicked(with: searchBar.text)
     }
 }

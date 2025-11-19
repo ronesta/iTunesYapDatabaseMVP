@@ -8,12 +8,12 @@
 import UIKit
 
 final class SearchCoordinator: BaseCoordinator {
-    private let searchQuery: String
+    private let searchQuery: String?
     private let searchAssembly: SearchAssemblyProtocol
     private let albumAssembly: AlbumAssemblyProtocol
 
     init(
-        searchQuery: String,
+        searchQuery: String? = nil,
         searchAssembly: SearchAssemblyProtocol = SearchAssembly(),
         albumAssembly: AlbumAssemblyProtocol = AlbumAssembly()
     ) {
@@ -53,6 +53,7 @@ final class SearchCoordinator: BaseCoordinator {
             coordinator: self,
             viewModel: viewModel
         )
+        viewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(viewController, animated: true)
     }
 }

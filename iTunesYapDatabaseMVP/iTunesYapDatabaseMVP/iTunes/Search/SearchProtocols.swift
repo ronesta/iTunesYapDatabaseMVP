@@ -9,12 +9,13 @@ import Foundation
 import UIKit
 
 protocol SearchAssemblyProtocol {
-    func build(searchQuery: String, coordinator: BaseCoordinatable) -> (UIViewController, SearchNavigation)
+    func build(searchQuery: String?, coordinator: BaseCoordinatable) -> (UIViewController, SearchNavigation)
 }
 
 protocol SearchViewInput: AnyObject {
     func reloadData()
     func setSearchBarHidden(_ hidden: Bool)
+    func setResultsVisibility(showResults: Bool)
 }
 
 protocol SearchViewOutput: AnyObject {
@@ -23,6 +24,8 @@ protocol SearchViewOutput: AnyObject {
     /// Validates the search input text and updates the UI accordingly
     /// - Parameter text: The search text to validate
     func searchInputTextDidChange(with text: String)
+
+    func searchButtonClicked(with text: String?)
 
     /// Returns number of items for collection view
     /// - Returns: number of items
